@@ -141,6 +141,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
+  section[id]{scroll-margin-top:64px}
   body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;padding-bottom:72px}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
@@ -153,7 +154,21 @@
   .logo span{color:var(--green)}
   .nav ul{display:flex;gap:22px;list-style:none;font-weight:600;font-size:.95rem;color:var(--muted)}
   .nav ul a:hover{color:var(--green)}
-  @media(max-width:720px){.nav ul{display:none}}
+  .menu-btn{display:none;background:none;border:0;padding:8px;margin-right:-8px;color:var(--ink);cursor:pointer;border-radius:8px}
+  .menu-btn path{transition:transform .2s,opacity .2s;transform-origin:center}
+  .m-only{display:none}
+  @media(max-width:720px){
+    .menu-btn{display:block}
+    .nav ul{display:none;position:absolute;left:0;right:0;top:60px;flex-direction:column;gap:0;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 12px 24px rgba(0,0,0,.08);padding:6px 0;font-size:1.05rem;color:var(--ink)}
+    .nav ul a{display:block;padding:13px 18px}
+    .nav ul li+li{border-top:1px solid var(--line)}
+    .m-only{display:block}
+    .m-only a{color:var(--green)}
+    header.open .nav ul{display:flex}
+    header.open .l1{transform:translateY(5px) rotate(45deg)}
+    header.open .l2{opacity:0}
+    header.open .l3{transform:translateY(-5px) rotate(-45deg)}
+  }
 
   /* Hero */
   .hero{background:linear-gradient(135deg,#1b1f1d 0%,#24302a 60%,var(--green-dark) 100%);color:#fff;padding:64px 0 56px}
@@ -236,7 +251,6 @@
   .faq details p{color:var(--muted);margin-top:10px}
 
   /* Mesaj formu */
-  #mesaj{scroll-margin-top:64px}
   .msgform{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;max-width:820px}
   @media(max-width:640px){.msgform{grid-template-columns:1fr;padding:18px}}
   .msgform .full{grid-column:1/-1}
@@ -268,13 +282,17 @@
 <header>
   <div class="wrap nav">
     <a href="#" class="logo">AUTO<span>54</span></a>
-    <ul>
+    <button class="menu-btn" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path class="l1" d="M4 7h16"/><path class="l2" d="M4 12h16"/><path class="l3" d="M4 17h16"/></svg>
+    </button>
+    <ul id="menu">
       <li><a href="#ustalar">Ustalarımız</a></li>
       <li><a href="#hizmetler">Hizmetler</a></li>
       <li><a href="#sigorta">Sigortalı Onarım</a></li>
       <li><a href="#bolgeler">Bölgeler</a></li>
       <li><a href="#mesaj">Mesaj Yaz</a></li>
       <li><a href="#iletisim">İletişim</a></li>
+      <li class="m-only"><a href="https://www.google.com/maps/dir/?api=1&destination=Sultan+Orhan+Mahallesi+1117.+Sokak+No+39+Gebze+Kocaeli" target="_blank" rel="noopener">📍 Yol Tarifi</a></li>
     </ul>
   </div>
 </header>
@@ -574,10 +592,20 @@ document.addEventListener('click',function(e){
   else if(h.indexOf('wa.me/')>-1)k='whatsapp-'+h.split('wa.me/')[1].slice(2,5);
   else if(h.indexOf('/maps/dir/')>-1)k='yol-tarifi';
   if(!k)return;
-  var sec=a.closest('section[id],section.hero,.bottombar,footer');
-  var yer=!sec?'diger':sec.id||(sec.classList.contains('hero')?'ust':sec.classList.contains('bottombar')?'mobil-bar':'alt');
+  var sec=a.closest('section[id],section.hero,.bottombar,footer,header');
+  var yer=!sec?'diger':sec.id||(sec.tagName==='HEADER'?'menu':sec.classList.contains('hero')?'ust':sec.classList.contains('bottombar')?'mobil-bar':'alt');
   track('klik/'+k+'/'+yer);
 },true);
+
+/* Mobil menü */
+(function(){
+  var hd=document.querySelector('header'),btn=hd&&hd.querySelector('.menu-btn');if(!btn)return;
+  function set(o){hd.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Menüyü kapat':'Menüyü aç');}
+  btn.addEventListener('click',function(){var o=!hd.classList.contains('open');set(o);if(o)track('menu/ac');});
+  hd.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){var h=a.getAttribute('href');if(h.charAt(0)==='#')track('menu/'+h.slice(1));set(false);});});
+  document.addEventListener('click',function(e){if(hd.classList.contains('open')&&!hd.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hd.classList.contains('open')){set(false);btn.focus();}});
+})();
 
 /* WhatsApp mesaj formu */
 (function(){
