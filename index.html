@@ -634,13 +634,15 @@ function track(name){try{if(window.goatcounter&&window.goatcounter.count){window
 document.addEventListener('click',function(e){
   var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;
   var h=a.getAttribute('href'),k=null;
-  if(h.indexOf('tel:')===0)k='telefon-'+h.slice(-10,-7);
-  else if(h.indexOf('wa.me/')>-1)k='whatsapp-'+h.split('wa.me/')[1].slice(2,5);
-  else if(h.indexOf('/maps/dir/')>-1)k='yol-tarifi';
+  if(h.indexOf('tel:')===0)k='klik/telefon-'+h.slice(-10,-7);
+  else if(h.indexOf('wa.me/')>-1)k='klik/whatsapp-'+h.split('wa.me/')[1].slice(2,5);
+  else if(h.indexOf('/maps/dir/')>-1)k='klik/yol-tarifi';
+  else if(h.indexOf('maps.google.com/?cid=')>-1)k='klik/harita';
+  else if(/^[\/#]/.test(h)){var pr=h.split('#');k='link/'+(pr[1]||pr[0].replace(/\//g,'')||'ana-sayfa');}
   if(!k)return;
   var sec=a.closest('section[id],section.hero,.bottombar,footer,header');
   var yer=!sec?'diger':sec.id||(sec.tagName==='HEADER'?'menu':sec.classList.contains('hero')?'ust':sec.classList.contains('bottombar')?'mobil-bar':'alt');
-  track('klik/'+k+'/'+yer);
+  track(k+'/'+yer);
 },true);
 
 /* Mobil menü */
@@ -648,7 +650,7 @@ document.addEventListener('click',function(e){
   var hd=document.querySelector('header'),btn=hd&&hd.querySelector('.menu-btn');if(!btn)return;
   function set(o){hd.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Menüyü kapat':'Menüyü aç');}
   btn.addEventListener('click',function(){var o=!hd.classList.contains('open');set(o);if(o)track('menu/ac');});
-  hd.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){var h=a.getAttribute('href');if(h.charAt(0)==='#')track('menu/'+h.slice(1));set(false);});});
+  hd.querySelectorAll('#menu a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
   document.addEventListener('click',function(e){if(hd.classList.contains('open')&&!hd.contains(e.target))set(false);});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hd.classList.contains('open')){set(false);btn.focus();}});
 })();
