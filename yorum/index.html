@@ -34,7 +34,15 @@
   <a class="btn-dir" href="https://g.page/r/CZPgMtFJvW_UEBM/review"><span class="dir-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2-6.2 3.2 1.2-6.8-5-4.9 6.9-1z"/></svg></span><span class="dir-tx"><b>Google'da yorum yazın</b><small>Google yorum sayfası açılır</small></span><svg class="dir-go" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 </main>
 <!-- GoatCounter: yorum linki tıklamasını say (JS'siz piksel) -->
-<img src="https://malik.goatcounter.com/count?p=/yorum&amp;t=Yorum%20linki" alt="" width="1" height="1" style="position:absolute;left:-9999px">
-<script>setTimeout(function(){location.replace('https://g.page/r/CZPgMtFJvW_UEBM/review');},400);</script>
+<noscript><img src="https://malik.goatcounter.com/count?p=/yorum&amp;t=Yorum%20linki" alt="" width="1" height="1" style="position:absolute;left:-9999px"></noscript>
+<script>
+/* Kaynak etiketi: /yorum?k=kartvizit -> GoatCounter'da /yorum/kartvizit olarak sayılır */
+(function(){
+  var k=(new URLSearchParams(location.search).get('k')||'').replace(/[^a-z0-9-]/gi,'').slice(0,30);
+  var path='/yorum'+(k?'/'+k:'');
+  var img=new Image(1,1);img.src='https://malik.goatcounter.com/count?p='+encodeURIComponent(path)+'&t='+encodeURIComponent('Yorum linki');
+  setTimeout(function(){location.replace('https://g.page/r/CZPgMtFJvW_UEBM/review');},400);
+})();
+</script>
 </body>
 </html>
