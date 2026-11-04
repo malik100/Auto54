@@ -377,6 +377,16 @@
   .person .cta-stack{max-width:none}
   @media(max-width:480px){.cta-stack{max-width:none}}
 
+  /* Bakım paketleri */
+  .pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .pkg{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;transition:border-color .15s,transform .15s,box-shadow .15s}
+  .pkg:hover{border-color:var(--green);transform:translateY(-1px);box-shadow:0 10px 22px -12px rgba(29,122,60,.35)}
+  .pkg-tag{align-self:flex-start;background:var(--green-soft);color:var(--green);font-weight:800;font-size:.75rem;letter-spacing:.5px;text-transform:uppercase;padding:4px 9px;border-radius:6px}
+  .pkg h3{font-size:1.2rem;margin:10px 0 8px}
+  .pkg ul{list-style:none;color:var(--muted);font-size:.95rem;display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+  .pkg li{display:flex;gap:8px;align-items:flex-start}
+  .pkg li svg{color:var(--green);margin-top:4px;flex-shrink:0}
+  .pkg-more{margin-top:auto;color:var(--green);font-weight:700}
   /* Mesaj formu */
   .msgform{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;max-width:820px}
   @media(max-width:640px){.msgform{grid-template-columns:1fr;padding:18px}}
@@ -477,7 +487,7 @@
     <div class="prose">
       <p>AUTO54'te motor ve mekanik bölümünden <b>Mustafa Deniz</b> sorumlu; 25 yıllık mekanik ustalığına sahip. Aracınızı getirdiğinizde önce arızanın kaynağını buluyoruz; ne yapılması gerektiğini, hangi parçanın değişeceğini ve yaklaşık maliyeti işe başlamadan önce sizinle konuşuyoruz.</p>
       <h3>Periyodik bakım</h3>
-      <p>Yağ ve filtre değişimi gibi rutin bakımlar, motorun ömrü ve yakıt tüketimi için önemlidir. Aracınızın kilometresine ve bakım geçmişine göre neyin değişmesi gerektiğini birlikte belirleriz.</p>
+      <p>Yağ ve filtre değişimi gibi rutin bakımlar, motorun ömrü ve yakıt tüketimi için önemlidir. Aracınızın kilometresine ve bakım geçmişine göre neyin değişmesi gerektiğini birlikte belirleriz. Paketlerin içeriği için <a href="/gebze-kucuk-bakim/" style="color:var(--green);font-weight:700">küçük bakım</a>, <a href="/gebze-buyuk-bakim/" style="color:var(--green);font-weight:700">büyük bakım</a> ve <a href="/gebze-arac-muayene-oncesi-kontrol/" style="color:var(--green);font-weight:700">muayene öncesi kontrol</a> sayfalarına bakabilirsiniz.</p>
       <h3>Fren ve yürüyen aksam</h3>
       <p>Frende ses, pedalda titreme ya da direksiyonda çekme varsa ertelemeyin. Balata, disk, amortisör, rotil, salıncak ve burç kontrolünü yapar, gerekeni değiştiririz.</p>
       <h3>Yedek parça</h3>
@@ -535,7 +545,7 @@
 
 <footer>
   <div class="wrap">
-    <b>AUTO54</b> Özel Servis &amp; Yedek Parça — <a href="/gebze-kaporta/">Gebze kaporta</a> · <a href="/gebze-oto-tamir/">Gebze oto tamir</a> · <a href="/gebze-filo-bakim/">Firmalar için</a> · <a href="/yorum/">Google'da yorum yazın</a>
+    <b>AUTO54</b> Özel Servis &amp; Yedek Parça — <a href="/gebze-kaporta/">Gebze kaporta</a> · <a href="/gebze-oto-tamir/">Gebze oto tamir</a> · <a href="/gebze-filo-bakim/">Firmalar için</a> · <a href="/gebze-kucuk-bakim/">Küçük bakım</a> · <a href="/gebze-buyuk-bakim/">Büyük bakım</a> · <a href="/gebze-arac-muayene-oncesi-kontrol/">Muayene öncesi kontrol</a> · <a href="/yorum/">Google'da yorum yazın</a>
     <address>Sultan Orhan Mh. 1117. Sk. No:39, 41400 Gebze / Kocaeli · <a href="tel:+905380681634">0538 068 16 34</a> · <a href="tel:+905442269709">0544 226 97 09</a> · Pzt–Cmt 08:30–19:00</address>
     <div style="margin-top:6px">© <span id="y">2026</span> AUTO54</div>
   </div>
